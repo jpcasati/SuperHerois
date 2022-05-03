@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -26,6 +28,10 @@ public class SuperHeroi implements Serializable {
     
     @Column(name = "nome_real")
     private String nomeReal;
+    
+    @ManyToOne
+    @JoinColumn(name = "franquia_id")
+    private Franquia franquia;
     
 
     public Integer getId() {
@@ -54,7 +60,15 @@ public class SuperHeroi implements Serializable {
 
     @Override
     public String toString() {
-        return id + " - " + nomeSuper + " - " + nomeReal;
+        return id + " - " + nomeSuper + " - " + nomeReal + " / " + franquia;
+    }
+
+    public Franquia getFranquia() {
+        return franquia;
+    }
+
+    public void setFranquia(Franquia franquia) {
+        this.franquia = franquia;
     }
     
 }

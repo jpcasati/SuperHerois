@@ -6,21 +6,18 @@
 package br.edu.mouralacerda.superherois.dao;
 
 import br.edu.mouralacerda.superherois.modelo.Franquia;
-import br.edu.mouralacerda.superherois.modelo.SuperHeroi;
 import java.util.List;
 
 /**
  *
  * @author jpcasati
  */
-public interface SuperHeroiDAO {
+public interface FranquiaDAO {
     
-    public boolean salvar(SuperHeroi sh);
+    public boolean salvar(Franquia f);
     
-    public List<SuperHeroi> listar();
+    public List<Franquia> listar();
     
-    public List<SuperHeroi> listar(Franquia f);
-    
-    public boolean remover(Integer id);
+    public Franquia selecionar(Integer id);
     
 }

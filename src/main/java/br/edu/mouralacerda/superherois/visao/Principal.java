@@ -5,8 +5,11 @@
  */
 package br.edu.mouralacerda.superherois.visao;
 
+import br.edu.mouralacerda.superherois.dao.FranquiaDAO;
+import br.edu.mouralacerda.superherois.dao.FranquiaDAOImpl;
 import br.edu.mouralacerda.superherois.dao.SuperHeroiDAO;
 import br.edu.mouralacerda.superherois.dao.SuperHeroiDAOImpl;
+import br.edu.mouralacerda.superherois.modelo.Franquia;
 import br.edu.mouralacerda.superherois.modelo.SuperHeroi;
 import java.util.List;
 
@@ -17,6 +20,7 @@ import java.util.List;
 public class Principal extends javax.swing.JFrame {
 
     private SuperHeroiDAO shDAO = new SuperHeroiDAOImpl();
+    private FranquiaDAO fDAO = new FranquiaDAOImpl();
     
     /**
      * Creates new form Principal
@@ -24,6 +28,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         atualizarLista();
+        atualizarListaFranquias();
     }
 
     /**
@@ -44,6 +49,13 @@ public class Principal extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         lstSuperHerois = new java.awt.List();
         btnRemover = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        edtNomeFranquia = new javax.swing.JTextField();
+        btnSalvarFranquia = new javax.swing.JButton();
+        lstFranquias = new java.awt.List();
+        btnFiltrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,35 +79,82 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel4.setText("SUPER HERÓI");
+
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel5.setText("FRANQUIA");
+
+        jLabel6.setText("Nome:");
+
+        btnSalvarFranquia.setText("Salvar");
+        btnSalvarFranquia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarFranquiaActionPerformed(evt);
+            }
+        });
+
+        btnFiltrar.setText("Filtrar por Franquia");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSalvar)
-                    .addComponent(edtId, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtNomeSuper, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                    .addComponent(edtNomeReal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(lstSuperHerois, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnSalvar)
+                                    .addComponent(edtId, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edtNomeSuper, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                    .addComponent(edtNomeReal)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnSalvarFranquia)
+                                    .addComponent(edtNomeFranquia, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lstSuperHerois, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnFiltrar)
+                                        .addGap(67, 67, 67))
+                                    .addComponent(lstFranquias, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRemover))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRemover)
-                .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(1, 1, 1)
+                        .addComponent(lstSuperHerois, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -109,11 +168,25 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(edtNomeReal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSalvar))
-                    .addComponent(lstSuperHerois, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRemover)
-                .addContainerGap(31, Short.MAX_VALUE))
+                        .addComponent(btnSalvar)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnRemover)
+                            .addComponent(btnFiltrar))
+                        .addGap(27, 27, 27)
+                        .addComponent(lstFranquias, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(edtNomeFranquia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSalvarFranquia)
+                        .addGap(82, 82, 82))))
         );
 
         pack();
@@ -127,6 +200,14 @@ public class Principal extends javax.swing.JFrame {
         sh.setId(Integer.parseInt(edtId.getText()));
         sh.setNomeSuper(edtNomeSuper.getText());
         sh.setNomeReal(edtNomeReal.getText());
+        
+        String selecionado = lstFranquias.getSelectedItem();
+        Integer id = Integer.parseInt(selecionado.split("-")[0].trim());
+        
+        if(id == 0)
+            sh.setFranquia(null);
+        else
+            sh.setFranquia(fDAO.selecionar(id));
         
         shDAO.salvar(sh);
         
@@ -146,6 +227,32 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnRemoverActionPerformed
 
+    private void btnSalvarFranquiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarFranquiaActionPerformed
+        
+        Franquia f = new Franquia();
+        
+        f.setNome(edtNomeFranquia.getText());
+        
+        fDAO.salvar(f);
+        
+        atualizarListaFranquias();
+        
+    }//GEN-LAST:event_btnSalvarFranquiaActionPerformed
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        
+        String selecionado = lstFranquias.getSelectedItem();
+        Integer id = Integer.parseInt(selecionado.split("-")[0].trim());
+        
+        Franquia f = null;
+        
+        if(id != 0)
+            f = fDAO.selecionar(id);
+        
+        atualizarLista(f);
+        
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
     private void atualizarLista() {
         
         List<SuperHeroi> superHerois = shDAO.listar();
@@ -155,7 +262,30 @@ public class Principal extends javax.swing.JFrame {
         for(SuperHeroi s: superHerois)
             lstSuperHerois.add(s.toString());
         
+    }
+    
+    private void atualizarLista(Franquia f) {
         
+        List<SuperHeroi> superHerois = shDAO.listar(f);
+        
+        lstSuperHerois.removeAll();
+        
+        for(SuperHeroi s: superHerois)
+            lstSuperHerois.add(s.toString());
+        
+    }
+    
+    private void atualizarListaFranquias() {
+        
+        List<Franquia> franquias = fDAO.listar();
+        
+        lstFranquias.removeAll();
+        
+        lstFranquias.add("0 - Sem Franquia");
+        
+        for(Franquia f: franquias) {
+            lstFranquias.add(f.toString());
+        }
         
     }
     
@@ -195,14 +325,21 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnSalvarFranquia;
     private javax.swing.JTextField edtId;
+    private javax.swing.JTextField edtNomeFranquia;
     private javax.swing.JTextField edtNomeReal;
     private javax.swing.JTextField edtNomeSuper;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private java.awt.List lstFranquias;
     private java.awt.List lstSuperHerois;
     // End of variables declaration//GEN-END:variables
 }

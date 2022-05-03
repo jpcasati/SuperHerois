@@ -5,6 +5,7 @@
  */
 package br.edu.mouralacerda.superherois.dao;
 
+import br.edu.mouralacerda.superherois.modelo.Franquia;
 import br.edu.mouralacerda.superherois.modelo.SuperHeroi;
 import br.edu.mouralacerda.superherois.persistencia.EMFSuperHerois;
 import java.util.List;
@@ -42,6 +43,26 @@ public class SuperHeroiDAOImpl implements SuperHeroiDAO {
         
         List<SuperHeroi> superHerois = em.createQuery("FROM super_heroi h").getResultList();
         
+        em.close();
+        
+        return superHerois;
+    }
+    
+    @Override
+    public List<SuperHeroi> listar(Franquia f) {
+        
+        EntityManager em = EMFSuperHerois.getInstance().createEntityManager();
+        
+        List<SuperHeroi> superHerois;
+        
+        if(f != null) {
+            superHerois = em.createQuery("FROM super_heroi h WHERE h.franquia = :fr")
+                    .setParameter("fr", f)
+                    .getResultList();
+        } else {
+            superHerois = em.createQuery("FROM super_heroi h WHERE h.franquia IS NULL")
+                    .getResultList();
+        }
         em.close();
         
         return superHerois;

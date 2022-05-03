@@ -1,0 +1,5 @@
+/home/jpcasati/NetBeansProjects/SuperHerois/src/main/java/br/edu/mouralacerda/superherois/modelo/SuperHeroi.java
+/home/jpcasati/NetBeansProjects/SuperHerois/src/main/java/br/edu/mouralacerda/superherois/dao/SuperHeroiDAOImpl.java
+/home/jpcasati/NetBeansProjects/SuperHerois/src/main/java/br/edu/mouralacerda/superherois/persistencia/EMFSuperHerois.java
+/home/jpcasati/NetBeansProjects/SuperHerois/src/main/java/br/edu/mouralacerda/superherois/visao/Principal.java
+/home/jpcasati/NetBeansProjects/SuperHerois/src/main/java/br/edu/mouralacerda/superherois/dao/SuperHeroiDAO.java
